@@ -1,0 +1,728 @@
+{
+  "version": "1.0",
+  "title": "Aprender melhor: organização e colaboração",
+  "sourceDocument": "Material fictício de demonstração (sem PDF)",
+  "questionCount": 25,
+  "questions": [
+    {
+      "id": "q001",
+      "type": "single",
+      "difficulty": "easy",
+      "topic": "Organização",
+      "statement": "Qual é o primeiro passo para organizar uma semana de estudos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Definir objetivos e horários disponíveis"
+        },
+        {
+          "id": "b",
+          "text": "Estudar sem escolher um tema"
+        },
+        {
+          "id": "c",
+          "text": "Separar apenas o último dia"
+        },
+        {
+          "id": "d",
+          "text": "Evitar registrar tarefas"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Definir objetivos e disponibilidade permite planejar atividades viáveis.",
+      "sourcePage": null
+    },
+    {
+      "id": "q002",
+      "type": "multiple",
+      "difficulty": "easy",
+      "topic": "Aprendizagem",
+      "statement": "Quais práticas favorecem a revisão ativa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Responder perguntas sem consultar o material"
+        },
+        {
+          "id": "b",
+          "text": "Explicar o conteúdo com suas palavras"
+        },
+        {
+          "id": "c",
+          "text": "Apenas contar páginas lidas"
+        },
+        {
+          "id": "d",
+          "text": "Revisitar os pontos em que errou"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "d"
+      ],
+      "explanation": "Perguntas, explicações próprias e revisão dos erros exigem recuperação e elaboração do conteúdo.",
+      "sourcePage": null
+    },
+    {
+      "id": "q003",
+      "type": "true_false",
+      "difficulty": "easy",
+      "topic": "Planejamento",
+      "statement": "Um plano de estudo pode ser ajustado quando a disponibilidade de tempo muda.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verdadeiro"
+        },
+        {
+          "id": "b",
+          "text": "Falso"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "O planejamento deve acompanhar o tempo disponível.",
+      "sourcePage": null
+    },
+    {
+      "id": "q004",
+      "type": "incorrect",
+      "difficulty": "easy",
+      "topic": "Comunicação",
+      "statement": "Qual atitude prejudica a clareza de uma mensagem de trabalho?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Apresentar o objetivo"
+        },
+        {
+          "id": "b",
+          "text": "Explicar o contexto necessário"
+        },
+        {
+          "id": "c",
+          "text": "Usar termos ambíguos sem explicar"
+        },
+        {
+          "id": "d",
+          "text": "Indicar o próximo passo"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Termos ambíguos podem dificultar a interpretação do pedido.",
+      "sourcePage": null
+    },
+    {
+      "id": "q005",
+      "type": "fill_blank",
+      "difficulty": "easy",
+      "topic": "Organização",
+      "statement": "Uma tarefa grande fica mais fácil de acompanhar quando é dividida em _____.",
+      "options": [
+        {
+          "id": "a",
+          "text": "etapas menores"
+        },
+        {
+          "id": "b",
+          "text": "mais interrupções"
+        },
+        {
+          "id": "c",
+          "text": "prazos indefinidos"
+        },
+        {
+          "id": "d",
+          "text": "assuntos sem relação"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Etapas menores tornam o progresso observável.",
+      "sourcePage": null
+    },
+    {
+      "id": "q006",
+      "type": "single",
+      "difficulty": "easy",
+      "topic": "Colaboração",
+      "statement": "Uma colega não entendeu uma instrução. Qual resposta ajuda mais?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Repetir mais alto"
+        },
+        {
+          "id": "b",
+          "text": "Reformular e conferir o entendimento"
+        },
+        {
+          "id": "c",
+          "text": "Ignorar a dúvida"
+        },
+        {
+          "id": "d",
+          "text": "Acrescentar termos técnicos sem explicar"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Reformular e confirmar o entendimento ajuda a esclarecer a instrução.",
+      "sourcePage": null
+    },
+    {
+      "id": "q007",
+      "type": "multiple",
+      "difficulty": "easy",
+      "topic": "Planejamento",
+      "statement": "Quais elementos tornam um objetivo mais verificável?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Um resultado esperado"
+        },
+        {
+          "id": "b",
+          "text": "Um prazo definido"
+        },
+        {
+          "id": "c",
+          "text": "Uma expressão vaga como melhorar tudo"
+        },
+        {
+          "id": "d",
+          "text": "Um critério de conclusão"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "d"
+      ],
+      "explanation": "Resultado, prazo e critério permitem verificar o cumprimento do objetivo.",
+      "sourcePage": null
+    },
+    {
+      "id": "q008",
+      "type": "true_false",
+      "difficulty": "easy",
+      "topic": "Organização",
+      "statement": "Todas as tarefas exigem exatamente o mesmo esforço e tempo.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verdadeiro"
+        },
+        {
+          "id": "b",
+          "text": "Falso"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Tarefas diferentes exigem esforços e tempos distintos.",
+      "sourcePage": null
+    },
+    {
+      "id": "q009",
+      "type": "incorrect",
+      "difficulty": "medium",
+      "topic": "Aprendizagem",
+      "statement": "Qual prática tende a limitar a aprendizagem com erros?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Analisar por que errou"
+        },
+        {
+          "id": "b",
+          "text": "Comparar raciocínio e explicação"
+        },
+        {
+          "id": "c",
+          "text": "Refazer a questão após revisar"
+        },
+        {
+          "id": "d",
+          "text": "Ignorar o erro e memorizar só a letra"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Memorizar a letra sem entender o raciocínio limita a aprendizagem.",
+      "sourcePage": null
+    },
+    {
+      "id": "q010",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Comunicação",
+      "statement": "Para confirmar uma orientação, é útil _____ o que foi entendido.",
+      "options": [
+        {
+          "id": "a",
+          "text": "resumir com suas palavras"
+        },
+        {
+          "id": "b",
+          "text": "mudar de assunto"
+        },
+        {
+          "id": "c",
+          "text": "omitir dúvidas"
+        },
+        {
+          "id": "d",
+          "text": "supor todos os detalhes"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Resumir permite identificar diferenças de entendimento.",
+      "sourcePage": null
+    },
+    {
+      "id": "q011",
+      "type": "single",
+      "difficulty": "medium",
+      "topic": "Planejamento",
+      "statement": "Você tem 30 minutos e três tarefas de 20 minutos. O que fazer?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Prometer concluir todas nesse período"
+        },
+        {
+          "id": "b",
+          "text": "Escolher a prioridade e replanejar as demais"
+        },
+        {
+          "id": "c",
+          "text": "Ignorar o tempo necessário"
+        },
+        {
+          "id": "d",
+          "text": "Iniciar todas ao mesmo tempo"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "A demanda excede o tempo disponível, exigindo priorização.",
+      "sourcePage": null
+    },
+    {
+      "id": "q012",
+      "type": "multiple",
+      "difficulty": "medium",
+      "topic": "Colaboração",
+      "statement": "Quais informações ajudam em uma passagem de tarefa?",
+      "options": [
+        {
+          "id": "a",
+          "text": "O que já foi feito"
+        },
+        {
+          "id": "b",
+          "text": "Pendências conhecidas"
+        },
+        {
+          "id": "c",
+          "text": "Próximo passo esperado"
+        },
+        {
+          "id": "d",
+          "text": "Apenas o nome do projeto"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Status, pendências e próximos passos permitem dar continuidade ao trabalho.",
+      "sourcePage": null
+    },
+    {
+      "id": "q013",
+      "type": "true_false",
+      "difficulty": "medium",
+      "topic": "Comunicação",
+      "statement": "Uma mensagem curta é sempre clara, mesmo sem contexto.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verdadeiro"
+        },
+        {
+          "id": "b",
+          "text": "Falso"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Clareza depende das informações necessárias, não apenas do tamanho.",
+      "sourcePage": null
+    },
+    {
+      "id": "q014",
+      "type": "incorrect",
+      "difficulty": "medium",
+      "topic": "Organização",
+      "statement": "Qual alternativa NÃO contribui para localizar arquivos?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Nomes descritivos"
+        },
+        {
+          "id": "b",
+          "text": "Pastas por tema"
+        },
+        {
+          "id": "c",
+          "text": "Padrão de versão"
+        },
+        {
+          "id": "d",
+          "text": "Nomear tudo como arquivo_final sem distinção"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Nomes indistintos dificultam identificar a versão desejada.",
+      "sourcePage": null
+    },
+    {
+      "id": "q015",
+      "type": "fill_blank",
+      "difficulty": "medium",
+      "topic": "Aprendizagem",
+      "statement": "Depois de estudar, responder sem consultar o texto ajuda a verificar a _____.",
+      "options": [
+        {
+          "id": "a",
+          "text": "compreensão"
+        },
+        {
+          "id": "b",
+          "text": "cor da capa"
+        },
+        {
+          "id": "c",
+          "text": "quantidade de arquivos"
+        },
+        {
+          "id": "d",
+          "text": "velocidade da internet"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Responder exige recuperar e aplicar o que foi aprendido.",
+      "sourcePage": null
+    },
+    {
+      "id": "q016",
+      "type": "single",
+      "difficulty": "medium",
+      "topic": "Colaboração",
+      "statement": "Duas pessoas entenderam prazos diferentes. Qual é a melhor próxima ação?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Confirmar uma data comum e registrá-la"
+        },
+        {
+          "id": "b",
+          "text": "Manter ambas as datas sem discutir"
+        },
+        {
+          "id": "c",
+          "text": "Escolher a data em segredo"
+        },
+        {
+          "id": "d",
+          "text": "Cancelar a conversa"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Uma data acordada e registrada reduz divergências.",
+      "sourcePage": null
+    },
+    {
+      "id": "q017",
+      "type": "multiple",
+      "difficulty": "medium",
+      "topic": "Organização",
+      "statement": "Quais ações ajudam a reduzir interrupções evitáveis?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Separar um período para a tarefa"
+        },
+        {
+          "id": "b",
+          "text": "Silenciar notificações não essenciais"
+        },
+        {
+          "id": "c",
+          "text": "Abrir continuamente novas abas sem relação"
+        },
+        {
+          "id": "d",
+          "text": "Preparar os materiais antes"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "d"
+      ],
+      "explanation": "Tempo reservado, materiais prontos e menos alertas favorecem a continuidade.",
+      "sourcePage": null
+    },
+    {
+      "id": "q018",
+      "type": "true_false",
+      "difficulty": "hard",
+      "topic": "Aprendizagem",
+      "statement": "Reconhecer uma resposta ao vê-la garante conseguir explicá-la sem ajuda.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verdadeiro"
+        },
+        {
+          "id": "b",
+          "text": "Falso"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Reconhecimento não garante explicação ou recuperação independente.",
+      "sourcePage": null
+    },
+    {
+      "id": "q019",
+      "type": "incorrect",
+      "difficulty": "hard",
+      "topic": "Planejamento",
+      "statement": "Ao surgir uma urgência, qual atitude é menos adequada?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verificar o impacto no plano"
+        },
+        {
+          "id": "b",
+          "text": "Comunicar alterações necessárias"
+        },
+        {
+          "id": "c",
+          "text": "Reavaliar prioridades"
+        },
+        {
+          "id": "d",
+          "text": "Manter promessas incompatíveis sem avisar"
+        }
+      ],
+      "correctAnswers": [
+        "d"
+      ],
+      "explanation": "Não comunicar a incompatibilidade dificulta o alinhamento das expectativas.",
+      "sourcePage": null
+    },
+    {
+      "id": "q020",
+      "type": "fill_blank",
+      "difficulty": "hard",
+      "topic": "Colaboração",
+      "statement": "Um retorno útil sobre uma tarefa descreve o ocorrido e sugere um _____ concreto.",
+      "options": [
+        {
+          "id": "a",
+          "text": "próximo passo"
+        },
+        {
+          "id": "b",
+          "text": "julgamento pessoal"
+        },
+        {
+          "id": "c",
+          "text": "rumor"
+        },
+        {
+          "id": "d",
+          "text": "desvio de assunto"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "Um próximo passo concreto torna o retorno aplicável.",
+      "sourcePage": null
+    },
+    {
+      "id": "q021",
+      "type": "single",
+      "difficulty": "hard",
+      "topic": "Aprendizagem",
+      "statement": "Você acertou por acaso uma questão. Como aproveitar a revisão?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Ignorar a explicação porque acertou"
+        },
+        {
+          "id": "b",
+          "text": "Conferir a explicação e reconstruir o raciocínio"
+        },
+        {
+          "id": "c",
+          "text": "Decorar somente a posição da opção"
+        },
+        {
+          "id": "d",
+          "text": "Excluir o assunto do estudo"
+        }
+      ],
+      "correctAnswers": [
+        "b"
+      ],
+      "explanation": "Revisar o raciocínio diferencia conhecimento de um acerto casual.",
+      "sourcePage": null
+    },
+    {
+      "id": "q022",
+      "type": "multiple",
+      "difficulty": "hard",
+      "topic": "Comunicação",
+      "statement": "Antes de enviar uma solicitação, o que vale conferir?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Se o pedido está explícito"
+        },
+        {
+          "id": "b",
+          "text": "Se o contexto é suficiente"
+        },
+        {
+          "id": "c",
+          "text": "Se há prazo quando necessário"
+        },
+        {
+          "id": "d",
+          "text": "Se o leitor terá de adivinhar o objetivo"
+        }
+      ],
+      "correctAnswers": [
+        "a",
+        "b",
+        "c"
+      ],
+      "explanation": "Pedido explícito, contexto e prazo ajudam o destinatário a agir.",
+      "sourcePage": null
+    },
+    {
+      "id": "q023",
+      "type": "true_false",
+      "difficulty": "hard",
+      "topic": "Planejamento",
+      "statement": "Revisar o plano ao final da semana pode ajudar a melhorar a próxima.",
+      "options": [
+        {
+          "id": "a",
+          "text": "Verdadeiro"
+        },
+        {
+          "id": "b",
+          "text": "Falso"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "A revisão permite ajustar estimativas e prioridades.",
+      "sourcePage": null
+    },
+    {
+      "id": "q024",
+      "type": "incorrect",
+      "difficulty": "hard",
+      "topic": "Colaboração",
+      "statement": "Qual alternativa representa um acordo pouco verificável?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Entregar o resumo até sexta"
+        },
+        {
+          "id": "b",
+          "text": "Revisar três seções do documento"
+        },
+        {
+          "id": "c",
+          "text": "Melhorar tudo algum dia"
+        },
+        {
+          "id": "d",
+          "text": "Confirmar o recebimento hoje"
+        }
+      ],
+      "correctAnswers": [
+        "c"
+      ],
+      "explanation": "Melhorar tudo algum dia não define resultado observável nem prazo.",
+      "sourcePage": null
+    },
+    {
+      "id": "q025",
+      "type": "fill_blank",
+      "difficulty": "hard",
+      "topic": "Aprendizagem",
+      "statement": "Na revisão de uma avaliação, a explicação do gabarito ajuda a compreender o _____ da resposta.",
+      "options": [
+        {
+          "id": "a",
+          "text": "motivo"
+        },
+        {
+          "id": "b",
+          "text": "tamanho da tela"
+        },
+        {
+          "id": "c",
+          "text": "nome do arquivo"
+        },
+        {
+          "id": "d",
+          "text": "horário do download"
+        }
+      ],
+      "correctAnswers": [
+        "a"
+      ],
+      "explanation": "A explicação relaciona a resposta ao raciocínio que a sustenta.",
+      "sourcePage": null
+    }
+  ]
+}
