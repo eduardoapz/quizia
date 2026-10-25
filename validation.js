@@ -20,7 +20,7 @@ function validate(data) {
   if(!filled(q.id)) err('ID obrigatório.'); else if(ids.has(q.id)) err('ID duplicado.');
   ids.add(q.id);
   if(!types.includes(q.type)) err('tipo inválido.');
-  if(!['easy','medium','hard'].includes(q.difficulty)) err('difficulty deve ser easy, medium ou hard.');
+  if(!['easy','medium','hard','unspecified'].includes(q.difficulty)) err('difficulty deve ser easy, medium ou hard.');
   if(!filled(q.topic)) err('assunto obrigatório.');
   if(!filled(q.statement)) err('enunciado obrigatório.');
   if(!filled(q.explanation)) err('explicação obrigatória.');
@@ -45,11 +45,39 @@ function validate(data) {
  });
  return errors;
 }
+
+function compact(data) {
+ const fail=message=>{throw new Error(message);};
+ if(data.v!==2) fail('Versão compacta inválida: use v: 2.');
+ if(Object.hasOwn(data,'version')||Object.hasOwn(data,'questions')) fail('Não misture os formatos 1.0 e 2.');
+ if(!filled(data.titulo)) fail('Informe titulo no JSON compacto.');
+ if(data.documento!==undefined&&!filled(data.documento)) fail('documento deve ser um texto preenchido.');
+ if(!Array.isArray(data.questoes)) fail('questoes deve ser uma lista.');
+ const typeMap={s:'single',m:'multiple',vf:'true_false',i:'incorrect',l:'fill_blank'};
+ const difficultyMap={f:'easy',m:'medium',d:'hard'};
+ return {version:'1.0',title:data.titulo,sourceDocument:data.documento??'Documento não informado',questionCount:data.questoes.length,
+ questions:data.questoes.map((q,i)=>{
+  const error=t=>fail('Questão '+(i+1)+': '+t);
+  if(!q||typeof q!=='object'||Array.isArray(q)) error('formato inválido.');
+  if(!Object.hasOwn(typeMap,q.tipo)) error('tipo deve ser s, m, vf, i ou l.');
+  if(!Array.isArray(q.opcoes)||q.opcoes.length<2||q.opcoes.some(o=>!filled(o))) error('opcoes deve conter pelo menos dois textos preenchidos.');
+  if(!Array.isArray(q.respostas)||!q.respostas.length||q.respostas.some(n=>!Number.isInteger(n)||n<1||n>q.opcoes.length)) error('respostas deve conter posições inteiras entre 1 e '+q.opcoes.length+'.');
+  if(q.dificuldade!==undefined&&!Object.hasOwn(difficultyMap,q.dificuldade)) error('dificuldade deve ser f, m ou d.');
+  if(q.assunto!==undefined&&!filled(q.assunto)) error('assunto deve ser um texto preenchido.');
+  return {id:'q'+String(i+1).padStart(3,'0'),type:typeMap[q.tipo],difficulty:q.dificuldade===undefined?'unspecified':difficultyMap[q.dificuldade],
+  topic:q.assunto??'Geral',statement:q.pergunta,options:q.opcoes.map((text,j)=>({id:'o'+(j+1),text})),
+  correctAnswers:q.respostas.map(n=>'o'+n),explanation:q.explicacao,sourcePage:q.pagina===undefined?null:q.pagina};
+ })};
+}
+
+
 function parse(text) {
  if(typeof text!=='string'||text.length>2000000) throw new Error('O JSON deve ter até 2 MB.');
  let data; try{data=JSON.parse(text);}catch{throw new Error('JSON inválido. Cole somente JSON, sem Markdown, comentários ou texto adicional.');}
+ if(data && typeof data==='object' && Object.hasOwn(data,'v')) data=compact(data);
  const errors=validate(data); if(errors.length) throw new Error(errors.join('\n'));
  return data;
 }
 root.QuizValidation={validate,parse};
 })(globalThis);
+

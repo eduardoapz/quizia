@@ -15,12 +15,12 @@ function home(){
  <section class="workspace" aria-label="Preparar avaliação"><div class="flow-tabs"><span class="active"><b>1</b> Seu material</span><span><b>2</b> Gere com o ChatGPT</span><span><b>3</b> Importe e comece</span></div>
  <div class="workspace-body"><section class="material"><div class="section-heading"><span class="step">01</span><div><h2>Comece pelo seu PDF</h2><p>Escolha o conteúdo que você quer dominar.</p></div></div>
  <input type="file" id="pdf-input" accept=".pdf,application/pdf" class="visually-hidden">
- <button id="dropzone" class="dropzone" aria-label="Selecionar PDF"><span class="file-icon">${icon}</span><strong>Arraste seu PDF até aqui</strong><span>ou <u>selecione um arquivo</u></span><small>Documento PDF · até 50 MB</small></button>
+ <button id="dropzone" class="dropzone" aria-label="Selecionar PDF"><span class="file-icon">${icon}</span><strong>Arraste seu PDF até aqui</strong><span>ou <u>selecione um arquivo</u></span><small>Documento PDF até 50 MB</small></button>
  <div id="pdf-selected" class="selected-file" hidden><span class="file-icon small">${icon}</span><div><strong id="pdf-name"></strong><small id="pdf-size"></small></div><button id="remove-pdf" class="icon-button" aria-label="Remover PDF">×</button></div>
  <div class="privacy"><span>♧</span><p>Seu PDF fica no seu dispositivo.<br>Nenhum arquivo é enviado automaticamente.</p></div>
  <div class="generation"><span class="eyebrow">PRÓXIMO PASSO</span><h3>Leve seu material ao ChatGPT</h3><p>Copie o prompt, anexe o PDF no ChatGPT e aguarde o questionário em JSON. Depois, volte aqui para importar.</p><button id="generate">Copiar prompt e abrir ChatGPT <span>↗</span></button><p class="micro">A geração usa sua própria conta, sujeita aos limites do plano gratuito. Não há integração automática.</p><a id="open-chat" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" hidden>Abrir ChatGPT manualmente ↗</a></div></section>
- <section class="import-panel"><div class="section-heading"><span class="step">02</span><div><h2>Seu questionário, pronto para usar</h2><p>Importe a resposta gerada pelo ChatGPT.</p></div></div><label for="json-text" class="text-label">Cole o JSON do questionário</label><textarea id="json-text" spellcheck="false" placeholder='{ "version": "1.0", "title": "...", "questions": [...] }'></textarea><div class="import-actions"><button id="validate-json" class="secondary">Validar JSON</button><span>ou</span><label class="file-button" for="json-input">↑ Importar arquivo .json</label><input id="json-input" class="visually-hidden" type="file" accept=".json,application/json"></div>
- <div id="validation" role="status" class="validation">○ Aguardando seu questionário</div><button id="repair" class="text-button" hidden>Copiar prompt para corrigir o JSON</button><div class="start-block"><button id="start" disabled>Iniciar avaliação <span>→</span></button><p>O cronômetro começa apenas quando você iniciar.</p></div><div class="tip"><strong>Primeira vez por aqui?</strong><p>Experimente a interface com 25 questões fictícias.</p><span class="demo-note">Importe o arquivo <a href="demo.json" download>demo.json ↓</a> incluído no projeto.</span></div></section></div></section>
+ <section class="import-panel"><div class="section-heading"><span class="step">02</span><div><h2>Seu questionário, pronto para usar</h2><p>Aceita JSON compacto v2 e o formato original v1.</p></div></div><label for="json-text" class="text-label">Cole o JSON do questionário</label><textarea id="json-text" spellcheck="false" placeholder='{ "v": 2, "titulo": "...", "questoes": [...] }'></textarea><div class="import-actions"><button id="validate-json" class="secondary">Validar JSON</button><span>ou</span><label class="file-button" for="json-input">↑ Importar arquivo .json</label><input id="json-input" class="visually-hidden" type="file" accept=".json,application/json"></div>
+ <div id="validation" role="status" class="validation">○ Aguardando seu questionário</div><button id="repair" class="text-button" hidden>Copiar prompt para corrigir o JSON</button><div class="start-block"><button id="start" disabled>Iniciar avaliação <span>→</span></button><p>O cronômetro começa apenas quando você iniciar.</p></div><div class="tip"><strong>Primeira vez por aqui?</strong><p>Experimente a interface com 25 questões fictícias.</p><span class="demo-note">Importe o arquivo <a href="demo-compacto.json" download>demo-compacto.json ↓</a> incluído no projeto.</span></div></section></div></section>
  <section class="how"><div><span>01 / PREPARE</span><h3>O conteúdo é seu.</h3><p>Use apostilas, manuais ou materiais de estudo em PDF.</p></div><div><span>02 / PRATIQUE</span><h3>Aprenda fazendo.</h3><p>Responda no seu ritmo, com tudo em uma única página.</p></div><div><span>03 / EVOLUA</span><h3>Entenda cada resposta.</h3><p>Veja a correção completa e retome o que precisa de atenção.</p></div></section>`;
  updatePdf();
  $('pdf-input').onchange=e=>choosePdf(e.target.files[0]);
@@ -45,7 +45,7 @@ function home(){
 function updatePdf(){
  if(!$('pdf-name'))return;
  $('pdf-selected').hidden=!pdf;$('dropzone').classList.toggle('compact',!!pdf);
- if(pdf){$('pdf-name').textContent=pdf.name;$('pdf-size').textContent=(pdf.size/1024/1024).toFixed(2)+' MB · PDF selecionado';}
+ if(pdf){$('pdf-name').textContent=pdf.name;$('pdf-size').textContent=(pdf.size/1024/1024).toFixed(2)+' MB PDF selecionado';}
 }
 async function choosePdf(file){
  const token=++pdfToken;
@@ -85,7 +85,7 @@ const typeNames={single:'Selecione uma alternativa',multiple:'Selecione todas as
 const difficulties={easy:'Fácil',medium:'Média',hard:'Difícil'};
 function questionCard(q,index,detail){
  const review=!!detail,selected=E.selected(state,q.id);
- return `<article class="question-card ${review?(detail.correct?'was-correct':'was-incorrect'):''}"><div class="question-meta"><span class="eyebrow">QUESTÃO ${String(index+1).padStart(2,'0')}</span><span class="topic">${esc(q.topic)} · ${difficulties[q.difficulty]}</span>${review?'<strong class="'+(detail.correct?'green':'red')+'">'+(detail.unanswered?'Não respondida':detail.correct?'✓ Acertou':'✕ Errou')+'</strong>':''}</div>
+ return `<article class="question-card ${review?(detail.correct?'was-correct':'was-incorrect'):''}"><div class="question-meta"><span class="eyebrow">QUESTÃO ${String(index+1).padStart(2,'0')}</span><span class="topic">${esc(q.topic)} ${difficulties[q.difficulty] ? '· '+difficulties[q.difficulty] : ''}</span>${review?'<strong class="'+(detail.correct?'green':'red')+'">'+(detail.unanswered?'Não respondida':detail.correct?'✓ Acertou':'✕ Errou')+'</strong>':''}</div>
  <fieldset ${review?'disabled':''}><legend>${esc(q.statement)}</legend><p class="question-help">${typeNames[q.type]}</p><div class="options">${q.options.map((o,j)=>{
  const isSelected=selected.includes(o.id),right=review&&q.correctAnswers.includes(o.id),wrong=review&&isSelected&&!right;
  return `<label class="option ${isSelected?'selected':''} ${right?'correct':''} ${wrong?'wrong':''}"><input type="${q.type==='multiple'?'checkbox':'radio'}" name="question-${index}" data-question="${index}" data-option="${j}" ${isSelected?'checked':''}><span class="letter">${String.fromCharCode(65+j)}</span><span>${esc(o.text)}</span>${right?'<small>✓ Correta</small>':wrong?'<small>✕ Sua resposta</small>':''}</label>`;
@@ -93,7 +93,7 @@ function questionCard(q,index,detail){
 }
 function renderQuiz(){
  document.body.classList.add('in-quiz');
- app.innerHTML=`<div class="exam-header"><div><span class="eyebrow">AVALIAÇÃO EM ANDAMENTO</span><h1>${esc(state.quiz.title)}</h1></div><div class="timer-box"><small>Tempo restante</small><strong id="timer" role="timer"></strong></div><div class="progress-row"><span id="answered"></span><span>25 questões · 4 pontos cada</span></div><progress id="progress" max="25" value="0" aria-label="Questões respondidas"></progress></div><section class="question-list">${state.quiz.questions.map((q,i)=>questionCard(q,i)).join('')}<div class="finish-area"><p>Revise suas respostas antes de concluir.</p><button id="finish">FINALIZAR AVALIAÇÃO →</button></div></section>`;
+ app.innerHTML=`<div class="exam-header"><div><span class="eyebrow">AVALIAÇÃO EM ANDAMENTO</span><h1>${esc(state.quiz.title)}</h1></div><div class="timer-box"><small>Tempo restante</small><strong id="timer" role="timer"></strong></div><div class="progress-row"><span id="answered"></span><span>25 questões 4 pontos cada</span></div><progress id="progress" max="25" value="0" aria-label="Questões respondidas"></progress></div><section class="question-list">${state.quiz.questions.map((q,i)=>questionCard(q,i)).join('')}<div class="finish-area"><p>Revise suas respostas antes de concluir.</p><button id="finish">FINALIZAR AVALIAÇÃO →</button></div></section>`;
  app.onchange=e=>{
  const input=e.target;if(!input.matches('input[data-question]'))return;
  const q=state.quiz.questions[Number(input.dataset.question)],o=q.options[Number(input.dataset.option)];
@@ -102,7 +102,7 @@ function renderQuiz(){
  };
  $('finish').onclick=()=>{
  tick();if(state.status!=='active')return;const n=E.count(state);
- $('confirm-summary').textContent=n+' respondidas · '+(25-n)+' sem resposta · '+T.format(T.remaining(state.endsAt))+' restantes';
+ $('confirm-summary').textContent=n+' respondidas '+(25-n)+' sem resposta '+T.format(T.remaining(state.endsAt))+' restantes';
  $('confirm-warning').textContent=n===0?'Você ainda não respondeu nenhuma questão. Finalizar agora resultará em zero pontos.':n<25?'As questões sem resposta serão consideradas incorretas.':'Todas as questões foram respondidas.';$('confirm').showModal();
  };
  updateProgress();clearInterval(interval);tick();if(state.status==='active')interval=setInterval(tick,250);
@@ -130,4 +130,6 @@ previous=Array.isArray(saved.previous)?saved.previous.filter(x=>typeof x==='stri
 if(state){if(state.status==='active'){if(Date.now()>=state.endsAt)finish(true);else{renderQuiz();notice('Avaliação recuperada. Respostas preservadas; o prazo original continua valendo.');}}else renderResults();}else home();
 if(saved.error)notice(saved.error);
 })();
+
+
 
