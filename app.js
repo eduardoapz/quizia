@@ -12,7 +12,7 @@ function home(){
  clearInterval(interval);app.onchange=null;document.body.classList.remove('in-quiz');
  app.innerHTML=`
  <section class="hero"><div class="eyebrow"><span class="mini-star">✦</span> APRENDA COM O SEU PRÓPRIO MATERIAL</div><h1>Transforme seu conhecimento<br>em <span>resultados.</span></h1><p>Seu material de estudo, uma nova forma de aprender.<br>Prepare seu questionário e descubra o quanto você já sabe.</p><div class="facts"><span>◎ &nbsp;25 questões</span><span>◷ &nbsp;45 minutos</span><span>✓ &nbsp;Correção com explicações</span></div></section>
- <section class="workspace" aria-label="Preparar avaliação"><div class="flow-tabs"><span class="active"><b>1</b> Seu material</span><span><b>2</b> Gere com o ChatGPT</span><span><b>3</b> Importe e comece</span></div>
+ <section class="workspace" aria-label="Preparar avaliação"><div class="flow-tabs"><span class="active"><b>1</b> Seu material</span><span><b>2</b> Gere na plataforma</span><span><b>3</b> Revise e comece</span></div>
  <div class="workspace-body"><section class="material"><div class="section-heading"><span class="step">01</span><div><h2>Comece pelo seu PDF</h2><p>Escolha o conteúdo que você quer dominar.</p></div></div>
  <input type="file" id="pdf-input" accept=".pdf,application/pdf" class="visually-hidden">
  <button id="dropzone" class="dropzone" aria-label="Selecionar PDF"><span class="file-icon">${icon}</span><strong>Arraste seu PDF até aqui</strong><span>ou <u>selecione um arquivo</u></span><small>Documento PDF até 50 MB</small></button>
@@ -28,7 +28,7 @@ function home(){
  drop.ondragover=e=>{e.preventDefault();drop.classList.add('dragging');};
  drop.ondragleave=()=>drop.classList.remove('dragging');
  drop.ondrop=e=>{e.preventDefault();drop.classList.remove('dragging');choosePdf(e.dataTransfer.files[0]);};
- $('remove-pdf').onclick=()=>{++pdfToken;pdf=null;pdfFile=null;ready=null;previous=[];$('pdf-input').value='';resetValidation();updatePdf();persist();};
+ $('remove-pdf').onclick=()=>{++pdfToken;QuizLocalUI.invalidate();pdf=null;pdfFile=null;ready=null;previous=[];$('pdf-input').value='';resetValidation();updatePdf();persist();};
  $('generate').onclick=()=>{if(!pdf){notice('Selecione um PDF antes de copiar o prompt.');drop.focus();return;}copy(QuizPrompt.master(pdf.name,previous),true);};
  $('validate-json').onclick=()=>importQuiz($('json-text').value);
  $('json-input').onchange=async e=>{
@@ -41,6 +41,7 @@ function home(){
  $('json-text').oninput=resetValidation;
  $('repair').onclick=()=>copy(QuizPrompt.repair(rawJSON,lastError),false);
  $('start').onclick=()=>{if(ready)begin(ready);};
+ QuizLocalUI.mount({getPdf:()=>pdfFile,selectPdf:choosePdf,start:begin});
 }
 function updatePdf(){
  if(!$('pdf-name'))return;
@@ -54,7 +55,7 @@ async function choosePdf(file){
  try{
   const signature=await file.slice(0,1024).text();if(token!==pdfToken)return;
   if(!signature.includes('%PDF-')){notice('PDF inválido: a assinatura do documento não foi encontrada.');return;}
-  pdfFile=file;pdf={name:file.name,size:file.size};ready=null;previous=[];resetValidation();updatePdf();persist();notice('PDF selecionado. Anexe este arquivo manualmente no ChatGPT.');
+  QuizLocalUI.invalidate();pdfFile=file;pdf={name:file.name,size:file.size};ready=null;previous=[];resetValidation();updatePdf();persist();notice('PDF selecionado. Gere as questões diretamente na plataforma.');
  }catch{notice('Não foi possível ler o PDF. Selecione novamente.');}
 }
 function resetValidation(){++importToken;ready=null;if($('start')){$('start').disabled=true;$('validation').className='validation';$('validation').textContent='Aguardando validação do questionário';$('repair').hidden=true;}}
@@ -117,8 +118,8 @@ function renderResults(){
  document.body.classList.remove('in-quiz');app.onchange=null;clearInterval(interval);const result=QuizResults.evaluate(state);
  app.innerHTML=`<section class="result-hero"><span class="eyebrow">MAIS UM PASSO NA SUA EVOLUÇÃO</span><h1>Avaliação concluída!</h1><p>${esc(state.quiz.title)}</p><div class="score-orbit"><strong>${result.score}<small>%</small></strong><span>de aproveitamento</span></div><h2>${result.correct} de 25 questões corretas</h2><div class="result-stats"><div><strong class="green">${result.correct}</strong><span>Acertos</span></div><div><strong class="red">${result.incorrect}</strong><span>Erros*</span></div><div><strong>${result.unanswered}</strong><span>Sem resposta</span></div><div><strong>${T.format(result.seconds)}</strong><span>Tempo utilizado</span></div></div><p class="micro">*Os erros incluem questões sem resposta. Cada acerto vale 4 pontos; sem pontuação parcial.</p><div class="result-actions"><button id="new-questions">Gerar novas questões ↗</button><button class="secondary" id="repeat">Repetir as mesmas questões</button><button class="secondary" id="reset">Carregar outro PDF</button></div></section><section class="question-list"><div class="review-heading"><h2>Sua correção, questão por questão.</h2><p>Entenda os acertos. Aprenda com cada tentativa.</p></div>${result.details.map((d,i)=>questionCard(d.question,i,d)).join('')}</section>`;
  $('repeat').onclick=()=>begin(state.quiz);
- $('reset').onclick=()=>{state=null;pdf=null;pdfFile=null;ready=null;previous=[];QuizStorage.clear();notice('');home();window.scrollTo(0,0);};
- $('new-questions').onclick=()=>{previous=state.quiz.questions.map(q=>q.statement);const name=pdf?.name||state.quiz.sourceDocument;state=null;ready=null;persist();home();window.scrollTo(0,0);copy(QuizPrompt.master(name,previous),true);notice('Solicite 25 novas questões no ChatGPT e importe o novo JSON. Use o mesmo PDF; ele precisa ser anexado manualmente.');};
+ $('reset').onclick=()=>{QuizLocalUI.invalidate();state=null;pdf=null;pdfFile=null;ready=null;previous=[];QuizStorage.clear();notice('');home();window.scrollTo(0,0);};
+ $('new-questions').onclick=()=>{if(state.quiz.generator==='rules-1.0'){const keys=state.quiz.questions.map(q=>q.sourceKey);state=null;ready=null;persist();home();QuizLocalUI.newRound(keys);window.scrollTo(0,0);return;}previous=state.quiz.questions.map(q=>q.statement);const name=pdf?.name||state.quiz.sourceDocument;state=null;ready=null;persist();home();window.scrollTo(0,0);copy(QuizPrompt.master(name,previous),true);notice('Solicite 25 novas questões no ChatGPT e importe o novo JSON. Use o mesmo PDF; ele precisa ser anexado manualmente.');};
 }
 $('confirm-finish').onclick=()=>finish();
 $('close-copy').onclick=()=>$('copy-dialog').close();

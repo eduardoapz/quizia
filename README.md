@@ -1,32 +1,37 @@
-# QuizIA — JSON compacto v2
+# QuizIA — geração local por regras
 
-Site: https://eduardoapz.github.io/quizia/
+Aplicação estática em português: 25 questões, 45 minutos e correção explicada. Sem login, API paga ou backend.
 
-O aplicativo aceita o formato original 1.0 e o compacto v2. O prompt agora pede v2 por padrão. A interface e a pontuação permanecem iguais.
+## Usar
 
-## Exemplo estrutural
+Abra https://eduardoapz.github.io/quizia/?v=3 em um navegador atualizado. Selecione um PDF com texto, escolha o foco e o intervalo de páginas, e clique em **Gerar 25 questões**. Também há um PDF fictício de demonstração.
 
-```json
-{"v":2,"titulo":"Avaliação","questoes":[{"tipo":"s","pergunta":"Qual opção está correta?","opcoes":["Primeira","Segunda","Terceira"],"respostas":[2],"explicacao":"A segunda opção está correta porque...","pagina":3}]}
-```
+A geração ocorre no dispositivo. O PDF não é enviado ao servidor. O leitor PDF.js é hospedado junto com o site; a primeira leitura precisa carregar esses arquivos. A avaliação é guardada em sessionStorage nesta aba; o PDF precisa ser selecionado novamente depois de recarregar a página.
 
-O exemplo tem apenas uma questão para ilustrar. A importação exige exatamente 25.
+Na revisão, abra cada pergunta para ver gabarito e trecho original, edite ou troque questões e baixe o questionário JSON. Abrir o gabarito revela a resposta antes da prova. A avaliação inicia somente ao clicar em Iniciar avaliação. Após finalizar, repita a prova ou gere uma nova rodada excluindo os trechos da prova anterior.
 
-- tipo: s (única correta), m (múltiplas corretas), vf (verdadeiro/falso), i (identificar incorreta), l (lacuna).
-- respostas: lista de posições **inteiras começando em 1**. Não use letras nem zero. Apenas m aceita mais de uma; sem repetição.
-- opcoes: lista de pelo menos dois textos. vf exige exatamente Verdadeiro e Falso.
-- pergunta e explicacao: obrigatórias e preenchidas.
-- pagina: inteiro positivo ou null; pode ser omitida quando desconhecida.
-- documento (na raiz), assunto e dificuldade (por questão) são opcionais. dificuldade aceita f, m ou d. A interface não atribui dificuldade quando omitida.
-- Os IDs e a quantidade são calculados pelo aplicativo. Nenhum gabarito é corrigido silenciosamente.
+## O que as regras fazem
 
-Use demo-compacto.json para testar v2 e demo.json para testar o formato antigo.
+Extraem definições, valores com unidades e orientações explícitas em português. Produzem perguntas de conceito, completar trecho e verdadeiro/falso, preservando evidência e número físico da página do PDF. Selecionam questões distribuídas por páginas e evitam trechos repetidos. Alternativas numéricas falsas são alterações intencionais para o exercício; o gabarito permanece vinculado ao trecho original.
 
-A versão compacta reduz estrutura repetitiva; a leitura do PDF e a elaboração das perguntas ainda dependem do ChatGPT. No exemplo incluído, a serialização compacta diminuiu de 11.619 para 7.942 bytes (32%), sem alterar os textos pedagógicos. Isso não garante redução proporcional no tempo de geração.
+Este gerador não é uma IA e não equivale ao GPT: não compreende profundamente o assunto nem garante a ausência de ambiguidade entre conceitos. Revise antes de usar em uma avaliação formal. Se o material não oferecer 25 fatos utilizáveis, a plataforma explica a insuficiência, sem preencher com conteúdo inventado.
 
-## Publicação e funcionamento
+Limites: 50 MB, 200 páginas, 1,5 milhão de caracteres e até 800 fatos candidatos distribuídos pelas páginas. Imagens não são interpretadas. PDFs escaneados precisam de OCR prévio. PDFs com senha devem ser desbloqueados no leitor do usuário. Tabelas, fórmulas, fontes incomuns e documentos em colunas podem prejudicar a extração. A página referenciada é a posição no arquivo, não necessariamente a numeração impressa.
 
-HTML/CSS/JavaScript estáticos, sem API paga. O GitHub Pages publica a branch main, pasta raiz. Os arquivos JS ficam na raiz nesta distribuição, e o CSS está integrado ao HTML. As fontes modulares e testes também são entregues no pacote local.
+## Importação e ChatGPT opcionais
 
-O PDF fica no dispositivo; anexe-o manualmente no ChatGPT. A sessão e o cronômetro são salvos no navegador. Os gabaritos são ocultos na interface durante a prova, mas podem ser inspecionados nos dados locais.
+A aba **Importar JSON** aceita o formato original v1 e o compacto v2, incluindo os cinco tipos de questões. A opção do ChatGPT fica recolhida abaixo do PDF: copie o prompt, anexe manualmente o arquivo no ChatGPT e importe a resposta. Nenhuma chave de API é usada.
 
+## Desenvolvimento local
+
+Na distribuição modular execute `node serve.cjs` e abra http://127.0.0.1:4173. A leitura de PDF exige HTTP local ou HTTPS, pois usa módulos e Web Worker. Abrir index.html por duplo clique permite apenas a importação JSON. Para publicar, sirva todos os arquivos do pacote; não somente index.html.
+
+Fontes: js/rules.js (geração), js/pdf-reader.js (extração), js/local-ui.js (revisão), demais módulos (avaliação e JSON). A publicação no GitHub usa arquivos achatados na raiz e CSS incorporado ao HTML.
+
+## Verificação
+
+`node tests/run.cjs`, `node tests/v2.cjs`, `node tests/rules.cjs`. Testes de navegador em `/tests/rules-browser.html`: PDF real, revisão/edição/troca, prova, nova rodada, intervalo insuficiente, OCR, senha, cancelamento, JSON e largura de 390px. Os PDFs em tests são fixtures sintéticas. O teste em largura de celular não substitui testes físicos em todos os aparelhos.
+
+## Dependência
+
+PDF.js / pdfjs-dist 6.4.299, Mozilla, distribuído sob Apache-2.0. Builds legacy locais em vendor/, licença em vendor/PDFJS-LICENSE.txt (na publicação achatada, ficam na raiz). Documentação: https://mozilla.github.io/pdf.js/
